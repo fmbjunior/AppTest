@@ -1,0 +1,87 @@
+﻿@model WebApplicationTest.Models.PropostaViewModel
+@{
+    ViewBag.Title = "Cadastros";
+    ViewBag.SubTitle = "Propostas";
+}
+
+@section Menu {
+    @Scripts.Render("~/Scripts/Forms/Advanced/menu")
+}
+
+@Styles.Render("~/AdminLTE/plugins/daterangepicker/css")
+@Styles.Render("~/AdminLTE/plugins/icheck/css")
+@Styles.Render("~/AdminLTE/plugins/colorpicker/css")
+@Styles.Render("~/AdminLTE/plugins/timepicker/css")
+@Styles.Render("~/AdminLTE/plugins/select2/css")
+@Styles.Render("~/AdminLTE/dist/css")
+@Styles.Render("~/AdminLTE/dist/css/skins")
+
+<div class="box box-default">
+    <div class="box-header with-border">
+        <h3 class="box-title"></h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Selecione o Cliente</label>
+                    @Html.DropDownListFor(m => m.ClienteId, Model.ListItemsClientes, new { @class = "form-control select2", @style = "width: 100%;" })
+                </div>
+                <div class="form-group">
+                    <label>Selecione o Fornecedor</label>
+                    @Html.DropDownListFor(m => m.FornecedorId, Model.ListItemsFornecedores, new { @class = "form-control select2", @style = "width: 100%;" })
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Itens da Proposta</h3>
+                    </div>
+                    <div class="container">
+                        <form>
+                            @Html.EditorFor(x => x.ItemProposta.Descricao)
+                            @Html.EditorFor(x => x.ItemProposta.Quantidade)
+                            @Html.EditorFor(x => x.ItemProposta.Valor)
+                            @Html.ActionLink("Add", "AddItem", new { Model })
+                        </form>
+                    </div>
+                    <div class="row container">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover" id="productTable">
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor</th>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    @foreach (var item in Model.ItensProposta)
+                                    {
+                                        <td>@item.Descricao</td>
+                                        <td>@item.Quantidade</td>
+                                        <td>@item.Valor</td>
+                                    }
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/AdminLTE/plugins/select2/js")
+    @Scripts.Render("~/AdminLTE/plugins/input-mask/js")
+    @Scripts.Render("~/AdminLTE/plugins/momentjs/js")
+    @Scripts.Render("~/AdminLTE/plugins/daterangepicker/js")
+    @Scripts.Render("~/AdminLTE/plugins/colorpicker/js")
+    @Scripts.Render("~/AdminLTE/plugins/timepicker/js")
+    @Scripts.Render("~/AdminLTE/plugins/icheck/js")
+    @Scripts.Render("~/Scripts/Forms/Advanced")
+}
